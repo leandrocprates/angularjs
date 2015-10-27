@@ -9,6 +9,7 @@ package com.webserviceangulajs.service;
 import com.webserviceangulajs.Registro;
 import com.webserviceangulajs.Usuario;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -76,6 +77,16 @@ public class HelloWorldService {
         public Response addRegistroViaText(String mensagem){
             System.out.println("======== Recebido via Text Plain ======== ");
             System.out.println("Mensagem: "+ mensagem);
+            return Response.status(200).build();
+        }
+        
+        @POST
+        @Path("/addStringPostForm")
+        @Consumes("application/x-www-form-urlencoded")
+        public Response addStringPostForm(@FormParam("id") String id, @FormParam("nome") String nome){
+            System.out.println("======== Recebido via Post Form ======== ");
+            System.out.println("Id: "+ id);
+            System.out.println("Nome: "+ nome);
             return Response.status(200).build();
         }
         
