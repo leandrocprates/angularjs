@@ -1,6 +1,7 @@
 <html>
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-sanitize.js"></script>
     
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -9,16 +10,24 @@
     
     <script src="resources/TesteController.js"></script>
     
+    
+    
   </head>
   
   <body ng-app="mainApp">
+      
         <div ng-controller="oitudobem">
+            
             <label>Name:</label>
             <input type="text" ng-model="yourName" placeholder="Enter a name here">
             <hr>
             <h1>Hello {{yourName}}!</h1>
             
             {{person.firstName}} - {{person.age}}
+            <p></p>
+            
+            <a href="dashboard.html" class="btn btn-info" role="button">Ir Para Grafico</a>
+            <hr>
             
             <button type="button" class="btn btn-primary" ng-click="chamarGet()" >Chamar Get</button>
             
@@ -44,6 +53,32 @@
             <p></p>
             
             <button type="button" class="btn btn-primary" ng-click="adicionarRegistro()">Enviar Objecto Registro via Post</button>
+            
+            
+            <h1>Teste Renderizacao de Html em Tempo Real </h1>            
+            
+            <!-- Aceita html com funcoes de script  exemplo onmouseover  -->
+            <p>
+                <b> Aceita html com funcoes de script  exemplo onmouseover: </b>
+                <br/><br/>
+                <span ng-bind-html="trustedHtml"></span>
+            </p>
+            
+            <!-- Nao aceita funcoes de html como onmouseover  -->
+            <p>
+                <b> Nao aceita funcoes de html como onmouseover: </b>
+                <br/><br/>
+                <span ng-bind-html="NonTrustedHtml"></span>
+            </p>
+
+            
+            <!-- Aceita html com funcoes angularjs como por exemplo ng-click --> 
+            <p>
+                <b> Html com funcoes AngularJS: </b>
+                <br/><br/>
+                <span compile-html="AngularTrustedHtml"></span>
+            </p>
+
             
         </div>
   </body>

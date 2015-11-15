@@ -6,9 +6,9 @@
 
 
 
-var myAppModule = angular.module('mainApp', []);
+var myAppModule = angular.module('mainApp', ['ngSanitize']);
 
-myAppModule.controller("oitudobem", function ($scope,$http)
+myAppModule.controller("oitudobem", function ($scope,$http,$sce)
 {
     $scope.person = {firstName:"John Maluco", lastName:"Doe", age:50, eyeColor:"blue"};
     
@@ -114,8 +114,49 @@ myAppModule.controller("oitudobem", function ($scope,$http)
                 
     };
     
+
+    // Aceita html com funcoes de script  exemplo onmouseover  
+    $scope.trustedHtml = $sce.trustAsHtml( 
+         'I am an <code>HTML</code>string with ' +
+         '<a href="#">links!</a> and other <em>stuff</em> <p/>'+
+         '<a onmouseover=alert("careful!") href="http://google.com">Google</a>' ) ;
+
+
+    // Nao aceita funcoes de html como onmouseover
+    $scope.NonTrustedHtml =  
+         'I am an <code>HTML</code>string with ' +
+         '<a href="#">links!</a> and other <em>stuff</em> <p/>'+
+         '<a onmouseover=alert("careful!") href="http://google.com">Google</a>'  ;
+
+
+
+    //Aceita html com funcoes angularjs como por exemplo ng-click
+    $scope.AngularTrustedHtml =$sce.trustAsHtml( '<button type="button" class="btn btn-primary" ' +
+                                                'ng-click="chamarGet()" >Chamar Get</button>' ) ;
+
+    
     
     
 });
     
+
+/* Referencia : http://odetocode.com/blogs/scott/archive/2014/09/10/a-journey-with-trusted-html-in-angularjs.aspx */
+myAppModule.directive("compileHtml", function($parse, $sce, $compile) {
+    return {
+        restrict: "A",
+        link: function (scope, element, attributes) {
+ 
+            var expression = $sce.parseAsHtml(attributes.compileHtml);
+ 
+            var getResult = function () {
+                return expression(scope);
+            };
+ 
+            scope.$watch(getResult, function (newValue) {
+                var linker = $compile(newValue);
+                element.append(linker(scope));
+            });
+        }
+    }
+});
 
