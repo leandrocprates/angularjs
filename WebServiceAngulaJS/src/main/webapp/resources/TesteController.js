@@ -114,6 +114,69 @@ myAppModule.controller("oitudobem", function ($scope,$http,$sce)
                 
     };
     
+    $scope.buscaListaString = function(){
+        
+        var url='http://localhost:8080/WebServiceAngulaJS/rest/lerDiretorio/buscaListaString';
+        
+        $http.get(url)
+                .success(function (data){
+                    console.log('Busca correta:'+data);
+                })
+                .error(function (data){
+                    console.log('Erro na busca:'+data);
+                });                
+        
+    };
+    
+    $scope.buscaUnicaString = function(){
+        
+        var url='http://localhost:8080/WebServiceAngulaJS/rest/lerDiretorio/buscaUnicaString';
+        
+        $http.get(url)
+                .success(function (data){
+                    console.log('Busca correta:'+data);
+                })
+                .error(function (data){
+                    console.log('Erro na busca:'+data);
+                });                
+        
+    };
+    
+    
+    //Busca arquivo no servidor e faz download via get 
+    $scope.downloadArquivo = function(){
+        
+        var url='http://localhost:8080/WebServiceAngulaJS/rest/lerDiretorio/download';
+
+//funciona mais retorna dados como string         
+//        $http.get(url)
+//                .success(function (data){
+//                    console.log('Busca correta:'+data);
+//                })
+//                .error(function (data){
+//                    console.log('Erro na busca:'+data);
+//                });                
+
+
+        $http({
+            url: 'http://localhost:8080/WebServiceAngulaJS/rest/lerDiretorio/download',
+            method: "GET",
+            headers: {
+               'Content-type': 'application/octet-stream'
+            },
+            responseType: 'arraybuffer'
+        }).success(function (data, status, headers, config) {
+            var blob = new Blob([data], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+            var objectUrl = URL.createObjectURL(blob);
+            window.open(objectUrl);
+        }).error(function (data, status, headers, config) {
+            //upload failed
+        });        
+        
+        
+    };
+    
+    
 
     // Aceita html com funcoes de script  exemplo onmouseover  
     $scope.trustedHtml = $sce.trustAsHtml( 
