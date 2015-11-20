@@ -9,6 +9,7 @@ package com.webserviceangulajs.service;
 import com.webserviceangulajs.Registro;
 import com.webserviceangulajs.Usuario;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -53,6 +54,19 @@ public class HelloWorldService {
         @Path("/addRegistro")
         @Consumes(MediaType.APPLICATION_JSON)
         public Response addRegistro(Registro registro){
+            System.out.println("Coluna: "+registro.getColuna());
+            System.out.println("Valor: "+registro.getValor());
+            System.out.println("Usuario Nome: "+registro.getUsuario().getNome());
+            System.out.println("Usuario Telefone: "+registro.getUsuario().getTelefone());
+            
+            return Response.status(200).build();
+        }
+
+        
+        @DELETE
+        @Path("/deleteRegistro")
+        @Consumes(MediaType.APPLICATION_JSON)
+        public Response deleteRegistro(Registro registro){
             System.out.println("Coluna: "+registro.getColuna());
             System.out.println("Valor: "+registro.getValor());
             System.out.println("Usuario Nome: "+registro.getUsuario().getNome());

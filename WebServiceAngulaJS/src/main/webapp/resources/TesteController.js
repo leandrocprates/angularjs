@@ -45,6 +45,33 @@ myAppModule.controller("oitudobem", function ($scope,$http,$sce)
                     console.log('Erro ao adicionar usuario.');
                 });
     };
+
+    
+    $scope.deletarRegistro = function(){
+        
+        var url='http://localhost:8080/WebServiceAngulaJS/rest/hello/deleteRegistro';
+        
+        var registro2 = {coluna:"Nome", valor:"Jose 1"};
+        registro2.usuario={nome: "Jose 2", telefone:"1122333018"};
+        
+        var req = {
+         method: 'DELETE',
+         url: url,
+         headers: {
+           'Content-Type': 'application/json'
+         },
+         data: registro2
+        };
+        
+        //$http.delete(url,registro2)
+        $http(req)
+                .success(function (data){
+                    console.log('Usuario deletado com sucesso.');
+                })
+                .error(function (data){
+                    console.log('Erro ao deletar usuario.');
+                });
+    };
     
     
     $scope.enviaStringViaJson = function(){
@@ -101,7 +128,7 @@ myAppModule.controller("oitudobem", function ($scope,$http,$sce)
            'Content-Type': 'application/x-www-form-urlencoded'
          },
          data: 'id=23&nome=Leandro'
-        };     
+        };
         
         //Força application form in post 
         $http(req)
