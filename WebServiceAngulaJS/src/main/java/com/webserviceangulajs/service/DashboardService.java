@@ -64,6 +64,12 @@ public class DashboardService {
         consumo2.setCols(cols2);
         
         
+        //Adiciona cores ao Grafico 
+        Cols cols3 = new Cols();
+        cols3.setType("string");
+        cols3.getP().setRole("style");
+        consumo2.setCols(cols3);
+        
         try{
 
             C coluna1 = new C();
@@ -71,24 +77,34 @@ public class DashboardService {
 
             C coluna2 = new C();
             coluna2.setV(5);
+            
+            C coluna3 = new C();
+            coluna3.setV("#b87333");
+            
 
             Rows rows = new Rows();
             rows.setC(coluna1);
             rows.setC(coluna2);
+            rows.setC(coluna3);
 
             consumo2.setRows(rows);
 
             /*####*/
 
-            C coluna3 = new C();
-            coluna3.setV("Matui");
-
             C coluna4 = new C();
-            coluna4.setV(15);
+            coluna4.setV("Matui");
 
+            C coluna5 = new C();
+            coluna5.setV(15);
+
+            C coluna6 = new C();
+            coluna6.setV("silver");
+            
+            
             Rows rows2 = new Rows();
-            rows2.setC(coluna3);
             rows2.setC(coluna4);
+            rows2.setC(coluna5);
+            rows2.setC(coluna6);
 
             consumo2.setRows(rows2);
             

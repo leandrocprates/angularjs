@@ -18,7 +18,15 @@ public class Cols implements Serializable{
     private String id;
     private String label;
     private String type;
+    
+    //Adiciona Cores 
+    private P p;
 
+    public Cols(){
+        p = new P();
+    }
+    
+    
     public String getId() {
         return id;
     }
@@ -43,4 +51,12 @@ public class Cols implements Serializable{
         this.type = type;
     }
 
+    public P getP() {
+        return p;
+    }
+
+    public void setP(P p) {
+        this.p = p;
+    }
+    
 }
